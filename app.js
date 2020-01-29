@@ -4,6 +4,14 @@ const path = require('path')
 const AutoLoad = require('fastify-autoload')
 
 module.exports = function (fastify, opts, next) {
+  opts = {
+    ...opts,
+    db: {
+      connectionString: 'postgres://localhost/trust_backend_exercise',
+      user: 'test',
+      password: 'toor-test'
+    }
+  }
   // Place here your custom code!
 
   // Do not touch the following lines

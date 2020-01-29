@@ -4,7 +4,7 @@ const { test } = require('tap')
 const { build } = require('../helper')
 
 test('server status', async (t) => {
-  const app = build(t)
+  const app = await build(t)
 
   const res = await app.inject({
     method: 'GET',

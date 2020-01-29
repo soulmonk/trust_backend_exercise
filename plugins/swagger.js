@@ -1,4 +1,5 @@
 'use strict'
+
 const fp = require('fastify-plugin')
 
 async function fastifySwagger (fastify, opts) {

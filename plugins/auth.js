@@ -1,4 +1,5 @@
 'use strict'
+
 const fp = require('fastify-plugin')
 const bearerAuthPlugin = require('fastify-bearer-auth').internals.factory
 

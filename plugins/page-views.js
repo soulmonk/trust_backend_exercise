@@ -4,10 +4,12 @@ const fp = require('fastify-plugin')
 
 const PageViewsRepository = require('../repositories/page-views')
 
-async function pageViewsRepository (fastify, opts) {
+async function pageViewsRepositoryPlugin (fastify, opts) {
   fastify.decorate('pageViewsRepository', {})
 
-  fastify.pageViewsRepository = new PageViewsRepository()
+  fastify.pageViewsRepository = new PageViewsRepository(fastify.pg)
 }
 
-module.exports = fp(pageViewsRepository)
+module.exports = fp(pageViewsRepositoryPlugin, {
+  dependencies: ['fastifyPostgres']
+})

@@ -1,15 +1,20 @@
 'use strict'
 
-async function eventsService (fastify, opts) {
+const schema = require('../schemas/event')
+
+async function eventService (fastify, opts) {
   fastify.get('/', {
-    handler: onEvent
+    handler: onEvent,
+    schema: schema.event
   })
 
   async function onEvent (req, repl) {
+    await this.pageViewsRepository.addEvent(req.userInfo, req.query)
+
     return { status: 'ok' }
   }
 }
 
-eventsService.autoPrefix = '/event'
+eventService.autoPrefix = '/event'
 
-module.exports = eventsService
+module.exports = eventService

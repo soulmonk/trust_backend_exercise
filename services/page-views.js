@@ -1,14 +1,17 @@
 'use strict'
 
+const schemas = require('../schemas/page-views')
+
 async function pageViewsService (fastify, opts) {
+  fastify.addHook('onRequest', fastify.authenticate)
+
   fastify.get('/', {
     handler: onFind,
-    // schema: schemas.history,
-    onRequest: fastify.authenticate
+    schema: schemas.find
   })
 
   async function onFind (req, repl) {
-    return { ok: true }
+    return { data: [] }
   }
 }
 
