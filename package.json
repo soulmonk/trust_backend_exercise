@@ -16,6 +16,7 @@
     "fastify-plugin": "^1.6.0",
     "fastify-swagger": "^2.5.0",
     "fluent-schema": "^0.10.0",
+    "geoip-lite": "^1.4.0",
     "hyperid": "^2.0.3"
   },
   "devDependencies": {
