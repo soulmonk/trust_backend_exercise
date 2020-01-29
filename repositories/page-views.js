@@ -32,18 +32,32 @@ from a full join c on a.page_id = c.page_id;`
   }
 
   async _aggregateViews () {
-    const query = 'SELECT * from event WHERE page_id = $1'
+    const query = `select distinct country, count(1) as views
+                   from event
+                   group by 1`
 
     const result = await this.client.query(query)
     return result.rows
   }
 
-  async findByBrowser (type) {
+  async findByBrowser (browser) {
+    const query = `select distinct browser, count(1) as views
+                   from event
+                   where browser = $1
+                   group by 1 `
 
+    const result = await this.client.query(query, [browser])
+    return result.rows
   }
 
-  async findByCountry (type) {
+  async findByCountry (cc) {
+    const query = `select distinct country, count(1) as views
+                   from event
+                   where country = $1
+                   group by 1 `
 
+    const result = await this.client.query(query, [cc])
+    return result.rows
   }
 
   async addEvent (userInfo, data) {
@@ -53,7 +67,7 @@ from a full join c on a.page_id = c.page_id;`
       [
         data.page_id ? data.page_id : 0,
         data.user_id ? data.user_id : 0,
-        (data.browser ? userInfo.browser : 'unknown').toLowerCase(),
+        (userInfo.browser ? userInfo.browser : 'unknown').toLowerCase(),
         userInfo.country.toLowerCase(),
         new Date(data.timestamp ? +data.timestamp : Date.now())
       ]
