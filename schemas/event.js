@@ -8,8 +8,8 @@ const event = {
   },
   querystring: S.object()
     .prop('timestamp', S.string())
-    .prop('userId', S.string())
-    .prop('pageId', S.string())
+    .prop('user_id', S.string())
+    .prop('page_id', S.string())
 }
 
 module.exports = {

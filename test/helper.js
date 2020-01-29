@@ -40,7 +40,16 @@ async function build (t, opts) {
   return app
 }
 
+async function countOfEvents (app) {
+  const countQuery = 'SELECT count(1) as count FROM "event"'
+
+  const { rows: [{ count }] } = await app.pg.query(countQuery)
+
+  return +count
+}
+
 module.exports = {
   config,
-  build
+  build,
+  countOfEvents
 }

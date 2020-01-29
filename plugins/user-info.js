@@ -2,18 +2,19 @@
 
 const fp = require('fastify-plugin')
 const geoip = require('geoip-lite')
+const uaParser = require('ua-parser-js')
 
 async function userInfoPlugin (fastify, opts) {
   fastify.decorateRequest('userInfo', '')
 
   fastify.addHook('preHandler', async (req, reply) => {
-    const userAgent = req.headers['user-agent']
+    const userAgent = uaParser(req.headers['user-agent'])
     let info = geoip.lookup(req.ip)
     if (!info) {
       info = { country: 'WW' }
     }
     req.userInfo = {
-      userAgent,
+      browser: userAgent.browser.name,
       country: info.country
     }
   })
